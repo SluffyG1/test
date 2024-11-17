@@ -5,21 +5,21 @@ class Config(object):
     STRING_SESSION = "your_generated_session_string"
 
     # pyro client config
-    API_ID    = os.environ.get("API_ID", "")
-    API_HASH  = os.environ.get("API_HASH", "")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "") 
+    API_ID    = os.environ.get("API_ID", "6813998583")
+    API_HASH  = os.environ.get("API_HASH", "dabc0305143936096274b38833384c3d")
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", "7885163673:AAFxH6-cpRJchYHsLp3H582yYFmOqJgA4jo") 
 
     # database config
-    DB_NAME = os.environ.get("DB_NAME","LKD_AK")     
-    DB_URL  = os.environ.get("DB_URL","")
+    DB_NAME = os.environ.get("DB_NAME","clustertas1")     
+    DB_URL  = os.environ.get("DB_URL","mongodb+srv://sluffyg1:PrinceJindal@clustertas1.otsfx.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTAS1")
  
     # other configs
     BOT_UPTIME  = time.time()
     START_PIC   = os.environ.get("START_PIC", "https://i.ibb.co/ZLbRGmT/Picsart-24-02-16-14-30-48-873.png")
-    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '15502786').split()]
+    ADMIN       = [int(admin) if id_pattern.search(admin) else admin for admin in os.environ.get('ADMIN', '6813998583').split()]
     # -- FORCE_SUB_CHANNELS = ["BotzPW","AshuSupport","AshutoshGoswami24"] -- # 
     FORCE_SUB_CHANNELS = os.environ.get('FORCE_SUB_CHANNELS', 'Old_Bollywood_movie_HD').split(',')
-    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", ""))
+    LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1002437449273"))
     PORT = int(os.environ.get("PORT", "8040"))
     
     # wes response configuration     
