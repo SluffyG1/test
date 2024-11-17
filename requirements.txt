@@ -9,3 +9,6 @@ pytz
 humanize
 pyromod
 ffmpeg-python
+asyncio
+threading
+queue
