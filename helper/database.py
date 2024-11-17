@@ -3,7 +3,7 @@ from config import Config
 import logging  # Added for logging errors and important information
 from .utils import send_log
 from pymongo import MongoClient
-from plugins.auto_rename import add_files_to_queue
+
 
 class Database:
     def __init__(self, uri, database_name):
@@ -161,7 +161,7 @@ class Database:
 
 
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
-
+from plugins.auto_rename import add_files_to_queue
 client = MongoClient("mongodb://localhost:27017/")
 db = client['file_database']
 collection = db['file_tasks']
