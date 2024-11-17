@@ -3,7 +3,7 @@ from config import Config
 import logging  # Added for logging errors and important information
 from .utils import send_log
 from pymongo import MongoClient
-from auto_rename import add_files_to_queue
+from plugins.auto_rename import add_files_to_queue
 
 class Database:
     def __init__(self, uri, database_name):
