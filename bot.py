@@ -10,7 +10,7 @@ from datetime import datetime
 import asyncio
 from plugins.web_support import web_server
 import pyromod
-from auto_rename import start_queue_processor, add_files_to_queue
+from plugins.auto_rename import start_queue_processor, add_files_to_queue
 
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
