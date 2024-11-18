@@ -10,7 +10,7 @@ class Config(object):
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "7885163673:AAFxH6-cpRJchYHsLp3H582yYFmOqJgA4jo") 
 
     # database config
-    DB_NAME = os.environ.get("DB_NAME","clustertas1")     
+    DB_NAME = os.environ.get("DB_NAME","ClusterTAS1")     
     DB_URL  = os.environ.get("DB_URL","mongodb+srv://sluffyg1:PrinceJindal@clustertas1.otsfx.mongodb.net/?retryWrites=true&w=majority&appName=ClusterTAS1")
  
     # other configs
