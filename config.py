@@ -5,7 +5,7 @@ class Config(object):
     STRING_SESSION = "your_generated_session_string"
 
     # pyro client config
-    API_ID    = os.environ.get("API_ID", "6813998583")
+    API_ID    = os.environ.get("API_ID", "28368399")
     API_HASH  = os.environ.get("API_HASH", "dabc0305143936096274b38833384c3d")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "7885163673:AAFxH6-cpRJchYHsLp3H582yYFmOqJgA4jo") 
 
