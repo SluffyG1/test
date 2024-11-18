@@ -7,6 +7,7 @@ from helper.utils import send_log  # Assuming send_log is defined elsewhere
 
 
 class Database:
+    
     def __init__(self, uri, database_name):
         try:
             self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
@@ -86,6 +87,14 @@ class Database:
         except PyMongoError as e:
             logging.error(f"Error getting {property_name} for user {id}: {e}")
             return default_value
+    async def get_metadata(self, id):
+    try:
+        user = await self.col.find_one({"_id": int(id)})
+        return user.get("metadata", None) if user else None
+    except Exception as e:
+        logging.error(f"Error getting metadata for user {id}: {e}")
+        return None
+        
 
 
 # Singleton database instance
