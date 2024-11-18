@@ -13,7 +13,8 @@ import time
 import re
 import subprocess
 import asyncio
-from test.plugins.auto_rename import add_files_to_queue
+from plugins.auto_rename import add_files_to_queue
+
 
 renaming_operations = {}
 
