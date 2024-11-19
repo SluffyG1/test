@@ -22,11 +22,13 @@ def get_next_batch(queue, max_batch_size):
 
 
 async def process_queue(rename_file_func):
-    """Continuously process the file queue using the provided renaming function."""
+    """Continuously process the file queue in batches."""
     while True:
         if not file_queue.empty():
             batch = get_next_batch(file_queue, MAX_BATCH_SIZE)
             logging.info(f"Processing batch of size {len(batch)}")
+            
+            # Process each file in the batch
             for file in batch:
                 try:
                     await rename_file_func(file)
@@ -34,5 +36,9 @@ async def process_queue(rename_file_func):
                     logging.error(f"Error processing file {file}: {e}")
                 finally:
                     file_queue.task_done()
+            
+            # After processing the current batch, check the queue again
+            logging.info("Batch processing complete. Checking for more files...")
         else:
-            await asyncio.sleep(1)  # Wait for new items in the queue
+            logging.info("Queue is empty. Waiting for new files...")
+            await asyncio.sleep(1)  # Wait before checking the queue again
