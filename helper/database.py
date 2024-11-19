@@ -9,6 +9,7 @@ from helper.utils import send_log  # Assuming `send_log` sends logs to a logging
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+
 class UserSchema(BaseModel):
     """Schema validation for user documents."""
     _id: int
@@ -116,6 +117,7 @@ class Database:
             logging.error(f"Error getting {property_name} for user {id}: {e}")
             return default_value
 
+    # Metadata Methods
     async def set_metadata(self, id: int, metadata_value: bool):
         """Set metadata for a user."""
         await self.set_property(id, "metadata", metadata_value)
@@ -123,6 +125,14 @@ class Database:
     async def get_metadata(self, id: int):
         """Get metadata for a user."""
         return await self.get_property(id, "metadata", default_value=True)
+
+    async def set_metadata_code(self, id: int, metadata_code: str):
+        """Set metadata code for a user."""
+        await self.set_property(id, "metadata_code", metadata_code)
+
+    async def get_metadata_code(self, id: int):
+        """Get metadata code for a user."""
+        return await self.get_property(id, "metadata_code", default_value="Telegram : @AshutoshGoswami24")
 
     # File Task Management
     async def fetch_files_from_db(self, batch_size: int = 5):
@@ -144,7 +154,6 @@ class Database:
         except PyMongoError as e:
             logging.error(f"Error marking files as processed: {e}")
 
-    # Example: Fetch and add files to the queue
     async def process_file_tasks(self):
         """Fetch and add pending files to the rename queue."""
         files = await self.fetch_files_from_db(batch_size=20)
