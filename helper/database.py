@@ -89,11 +89,13 @@ class Database:
             return default_value
     async def get_metadata(self, id):
          try:
-        user = await self.col.find_one({"_id": int(id)})
-        return user.get("metadata", None) if user else None
-    except Exception as e:
-        logging.error(f"Error getting metadata for user {id}: {e}")
-        return None
+             user = await self.col.find_one({"_id": int(id)})
+              return user.get("metadata", None) if user else None
+         except Exception as e:
+             logging.error(f"Error getting metadata for user {id}: {e}")
+             return None
+        
+        
         
    
         
