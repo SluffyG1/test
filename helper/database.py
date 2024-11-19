@@ -24,7 +24,7 @@ class UserSchema(BaseModel):
 class Database:
     """Database class to handle MongoDB operations."""
     
-    def __init__(self, uri, database_name):
+   def __init__(self, uri, database_name):
         try:
             self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
             self._client.server_info()  # Test connection
@@ -38,9 +38,10 @@ class Database:
 
         self.db = self._client[database_name]
         self.col = self.db.user
-        self.file_tasks_col = self.db.file_tasks  # Collection for file task management
+        self.file_tasks_col = self.db.file_tasks
+  # Collection for file task management
 
-    def new_user(self, id: int):
+    async def new_user(self, id: int):
         """Create a new user document."""
         return {
             "_id": id,
@@ -219,6 +220,26 @@ class Database:
         except Exception as e:
             logging.error(f"Error getting format template for user {id}: {e}")
             return default_value
-
+            
+    async def set_thumbnail(self, user_id, file_id):
+        """Set the thumbnail for a user."""
+        try:
+            await self.col.update_one({"_id": user_id}, {"$set": {"file_id": file_id}})
+            logging.info(f"Set thumbnail for user {user_id}")
+        except PyMongoError as e:
+            logging.error(f"Error setting thumbnail for user {user_id}: {e}")
+            
+    async def get_thumbnail(self, user_id):
+        """Get the thumbnail for a user."""
+        try:
+            user = await self.col.find_one({"_id": user_id})
+            if user:
+                return user.get("file_id", None)
+            else:
+                return None
+        except PyMongoError as e:
+            logging.error(f"Error getting thumbnail for user {user_id}: {e}")
+            return None
+            
 # Singleton database instance
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
