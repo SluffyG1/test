@@ -243,16 +243,17 @@ class Database:
             return None
     
     async def set_media_preference(self, user_id, media_type):
-         """Set the media preference for a user."""
-    if media_type not in ["photo", "video", "document"]:
-        
+        if media_type not in ["photo", "video", "document"]:
         logging.error(f"Invalid media type: {media_type}")
-         return None
+        return None  # Only return None if media_type is invalid
+    # Rest of the function logic...
     try:
         await self.col.update_one({"_id": user_id}, {"$set": {"media_type": media_type}})
         logging.info(f"Set media preference to {media_type} for user {user_id}")
     except PyMongoError as e:
         logging.error(f"Error setting media preference for user {user_id}: {e}")
+        
+    
     
     async def get_media_preference(self, user_id):
         """Get the media preference for a user."""
@@ -266,10 +267,6 @@ class Database:
         logging.error(f"Error getting media preference for user {user_id}: {e}")
         return "document"
         
-     
-   
-
-   
-            
+                
 # Singleton database instance
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
