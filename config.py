@@ -96,7 +96,15 @@ If You Like My Bots & Projects, You Can 🎁 Donate Me Any Amount From 10 Rs Upt
     HELP_TXT = """<b>Hey</b> {}
     
 Joine @LKD_AK To Help """
+    
+    SEND_METADATA = """<b>Set Your Custom Metadata Code</b>
 
+➻ Example Metadata Code:
+<code>-map 0 -c:s copy -c:a copy -c:v copy -metadata title="Encoded By :- @the_anime_saga" -metadata author="@the_anime_saga" -metadata:s:s title="Subtitled By :- @the_anime_saga" -metadata:s:a title="By :- @the_anime_saga" -metadata:s:v title="Encoded By :- @the_anime_saga"</code>
+
+<b>Important:</b>
+- Ensure your metadata string follows FFmpeg's syntax.
+- Placeholders like `[episode]`, `[quality]` will be replaced dynamically if used."""
 
 
 
