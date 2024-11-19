@@ -164,16 +164,61 @@ class Database:
             logging.info("Pending files added to the queue.")
         else:
             logging.info("No pending files to process.")
-    # Existing methods...
-    async def set_format_template(self, id: int, template: str):
-        """Set format template for a user."""
-        await self.set_property(id, "format_template", template)
+   
+    async def set_format_template(self, id: int, format_template: str):
+        """
+        Set the format template for a user.
+        
+        Args:
+            id (int): The ID of the user.
+            format_template (str): The format template to set.
 
-    async def get_format_template(self, id: int):
-        """Get format template for a user."""
-        return await self.get_property(id, "format_template", default_value=None)
+        Logs:
+            - Success message on successful update.
+            - Error message on failure.
+        """
+        if not isinstance(id, int):
+            logging.error(f"Invalid ID provided: {id}")
+            return
 
-    # Existing methods...
+        try:
+            await self.col.update_one(
+                {"_id": id}, {"$set": {"format_template": format_template}}
+            )
+            logging.info(f"Successfully set format template for user {id}")
+        except Exception as e:
+            logging.error(f"Error setting format template for user {id}: {e}")
+
+    async def get_format_template(self, id: int, default_value: str = None) -> str | None:
+        """
+        Get the format template for a user.
+        
+        Args:
+            id (int): The ID of the user.
+            default_value (str): The default value to return if the template is not found.
+
+        Returns:
+            str | None: The format template or the default value if not found.
+
+        Logs:
+            - Error message on failure.
+        """
+        if not isinstance(id, int):
+            logging.error(f"Invalid ID provided: {id}")
+            return default_value
+
+        try:
+            user = await self.col.find_one({"_id": id})
+            if user:
+                format_template = user.get("format_template", default_value)
+                logging.info(f"Retrieved format template for user {id}: {format_template}")
+                return format_template
+            else:
+                logging.info(f"No format template found for user {id}, returning default.")
+                return default_value
+        except Exception as e:
+            logging.error(f"Error getting format template for user {id}: {e}")
+            return default_value
 
 # Singleton database instance
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
