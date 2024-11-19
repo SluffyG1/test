@@ -32,11 +32,11 @@ async def set_media_command(client, message):
         user_id = message.from_user.id
         media_type = message.text.split("/setmedia", 1)[1].strip().lower()
 
-        if not media_type:
-            await message.reply_text("❌ Please specify a valid media type!")
+        if media_type not in ["photo", "video"]:
+            await message.reply_text("Invalid media type. Please use 'photo' or 'video'")
             return
 
-        await AshutoshGoswami24.set_property(user_id, "media_type", media_type)
+        await AshutoshGoswami24.set_media_preference(user_id, media_type)
         await message.reply_text(f"✅ **Media Preference Set To:** {media_type}")
         logging.info(f"Set media preference for user {user_id}: {media_type}")
     except IndexError:
