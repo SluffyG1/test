@@ -7,12 +7,14 @@ MAX_BATCH_SIZE = 5  # Adjust as needed
 
 
 def add_files_to_queue(files):
+    """Add a list of files to the queue."""
     for file in files:
         file_queue.put(file)
         logging.info(f"Added file {file} to the queue")
 
 
 def get_next_batch(queue, max_batch_size):
+    """Retrieve the next batch of files from the queue."""
     batch = []
     while not queue.empty() and len(batch) < max_batch_size:
         batch.append(queue.get())
@@ -20,6 +22,7 @@ def get_next_batch(queue, max_batch_size):
 
 
 async def process_queue(rename_file_func):
+    """Continuously process the file queue using the provided renaming function."""
     while True:
         if not file_queue.empty():
             batch = get_next_batch(file_queue, MAX_BATCH_SIZE)
