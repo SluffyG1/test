@@ -88,12 +88,14 @@ class Database:
             logging.error(f"Error getting {property_name} for user {id}: {e}")
             return default_value
     async def get_metadata(self, id):
-    try:
+         try:
         user = await self.col.find_one({"_id": int(id)})
         return user.get("metadata", None) if user else None
     except Exception as e:
         logging.error(f"Error getting metadata for user {id}: {e}")
         return None
+        
+   
         
 
 
