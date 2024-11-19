@@ -9,8 +9,12 @@ async def add_caption(client, message):
             "**Give The Caption\n\nExample :- `/set_caption 📕Name ➠ : {filename} \n\n🔗 Size ➠ : {filesize} \n\n⏰ Duration ➠ : {duration}`**"
         )
     caption = message.text.split(" ", 1)[1]
-    await AshutoshGoswami24.set_caption(message.from_user.id, caption=caption)
-    await message.reply_text("**Your Caption Successfully Added ✅**")
+    try:
+        await AshutoshGoswami24.set_caption(message.from_user.id, caption=caption)
+        await message.reply_text("**Your Caption Successfully Added ✅**")
+    except Exception as e:
+        logging.error(f"Error setting caption for user {message.from_user.id}: {e}")
+        await message.reply_text("**An error occurred. Please try again later.**")
 
 
 @Client.on_message(filters.private & filters.command("del_caption"))
@@ -48,8 +52,9 @@ async def removethumb(client, message):
 
 @Client.on_message(filters.private & filters.photo)
 async def addthumbs(client, message):
-    mkn = await message.reply_text("Please Wait ...")
-    await AshutoshGoswami24.set_thumbnail(
-        message.from_user.id, file_id=message.photo.file_id
-    )
-    await mkn.edit("**Thumbnail Saved Successfully ✅️**")
+    try:
+        await AshutoshGoswami24.set_thumbnail(message.from_user.id, file_id=message.photo.file_id)
+        await message.reply_text("**Thumbnail Saved Successfully ✅️**")
+    except Exception as e:
+        logging.error(f"Error setting thumbnail for user {message.from_user.id}: {e}")
+        await message.reply_text("**An error occurred while saving the thumbnail. Please try again later.**")
