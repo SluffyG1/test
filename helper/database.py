@@ -241,6 +241,26 @@ class Database:
         except PyMongoError as e:
             logging.error(f"Error getting thumbnail for user {user_id}: {e}")
             return None
+    
+    async def set_media_preference(self, user_id, media_type):
+        """Set the media preference for a user."""
+        try:
+            await self.col.update_one({"_id": user_id}, {"$set": {"media_type": media_type}})
+            logging.info(f"Set media preference to {media_type} for user {user_id}")
+        except PyMongoError as e:
+            logging.error(f"Error setting media preference for user {user_id}: {e}")
+
+    async def get_media_preference(self, user_id):
+        """Get the media preference for a user."""
+        try:
+            user = await self.col.find_one({"_id": user_id})
+            if user:
+                return user.get("media_type", "photo")  # Default to photo if not set
+            else:
+                return "photo"
+        except PyMongoError as e:
+            logging.error(f"Error getting media preference for user {user_id}: {e}")
+            return "photo"
             
 # Singleton database instance
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
