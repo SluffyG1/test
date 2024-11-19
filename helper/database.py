@@ -164,7 +164,16 @@ class Database:
             logging.info("Pending files added to the queue.")
         else:
             logging.info("No pending files to process.")
+    # Existing methods...
+    async def set_format_template(self, id: int, template: str):
+        """Set format template for a user."""
+        await self.set_property(id, "format_template", template)
 
+    async def get_format_template(self, id: int):
+        """Get format template for a user."""
+        return await self.get_property(id, "format_template", default_value=None)
+
+    # Existing methods...
 
 # Singleton database instance
 AshutoshGoswami24 = Database(Config.DB_URL, Config.DB_NAME)
