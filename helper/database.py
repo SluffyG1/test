@@ -246,7 +246,7 @@ class Database:
          """Set the media preference for a user."""
     if media_type not in ["photo", "video", "document"]:
         logging.error(f"Invalid media type: {media_type}")
-        return media_type
+        return None
     try:
         await self.col.update_one({"_id": user_id}, {"$set": {"media_type": media_type}})
         logging.info(f"Set media preference to {media_type} for user {user_id}")
@@ -263,7 +263,7 @@ class Database:
             return "document"
     except PyMongoError as e:
         logging.error(f"Error getting media preference for user {user_id}: {e}")
-        return "photo"
+        return "document"
         
      
    
