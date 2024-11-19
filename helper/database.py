@@ -22,9 +22,10 @@ class UserSchema(BaseModel):
 
 
 class Database:
+    
     """Database class to handle MongoDB operations."""
     
-   def __init__(self, uri, database_name):
+    def __init__(self, uri, database_name):
         try:
             self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
             self._client.server_info()  # Test connection
