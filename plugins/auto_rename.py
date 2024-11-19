@@ -32,8 +32,8 @@ async def set_media_command(client, message):
         user_id = message.from_user.id
         media_type = message.text.split("/setmedia", 1)[1].strip().lower()
 
-        if media_type not in ["photo", "video"]:
-            await message.reply_text("Invalid media type. Please use 'photo' or 'video'")
+        if media_type not in ["photo", "video", "document"]:
+            await message.reply_text("Invalid media type. Please use 'photo' or 'video' or 'document'")
             return
 
         await AshutoshGoswami24.set_media_preference(user_id, media_type)
